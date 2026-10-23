@@ -23,13 +23,10 @@ If the customer enters an invalid menu choice, display an appropriate message an
 try again. Continue displaying the menu until the customer chooses to quit.
 
 Your program should use a BankAccount class to represent the customer’s account. Organize
-your program into at least two Python files so that the class and the main program are separate."""
+your program into at least two Python files so that the class and the main program are separate.
+"""
 
 from BankFunctions import BankAccount
-
-balance = 0.00
-account_name = ""
-account_number = 0
 
 # This isn't neccessary for the assignment, but this list will hold account numbers so no 2 users have the same account #
 existing_account_numbers = []
@@ -38,41 +35,43 @@ print("\nWelcome to CougarBank!\n")
 
 # Gets and verifies name
 account_name = input("Enter your name: ")
-while True :
-    answer = input(f"Verify your name. This information cannot be changed. \nIs this your name? '{account_name}' ")
+while True:
+    answer = input(
+        f"Verify your name. This information cannot be changed. \nIs this your name? '{account_name}' "
+    )
     if answer.lower() == "yes":
         break
-    elif answer.lower() == "no" :
+    elif answer.lower() == "no":
         account_name = input("Enter your name: ")
-    else : 
+    else:
         print("Please enter yes or no.")
 
 # Creates a new account
-account = BankAccount(balance, account_name, account_number, existing_account_numbers)
+account = BankAccount(account_name, existing_account_numbers)
 
 # While user wants to complete transactions, loop runs
-while True :
+while True:
     transaction_number = input("\nPlease choose an option: \
                             \n1. Make a deposit\
                             \n2. Make a withdrawal\
                             \n3. View account information\
                             \n4. Quit\n\n")
-    
+
     try:
-        if transaction_number not in "1,2,3,4" :
-            raise ValueError 
+        if transaction_number not in "1,2,3,4":
+            raise ValueError
         
     except ValueError:
         print("Please type a valid number (1-4)")
-    
-    else :
-        if transaction_number == "1" :
+        
+    # If transaction_number is 1-4, run checks to run the correct function
+    else:
+        if transaction_number == "1":
             balance = BankAccount.deposit(account)
-        elif transaction_number == "2" :
+        elif transaction_number == "2":
             balance = BankAccount.withdraw(account)
-        elif transaction_number == "3" :
+        elif transaction_number == "3":
             BankAccount.view_account(account)
-        elif transaction_number == "4" :
+        elif transaction_number == "4":
             BankAccount.quit()
             break
-    
